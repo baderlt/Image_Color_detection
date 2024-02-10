@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Télécharger une image et afficher les couleurs</title>
+<link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div class="main">
+      
+
+      <button
+        id="dropContainer"
+        style="height: 40px; width: 100%; position: relative"  >
+        Upload image
+        <input
+          type="file"
+          id="imageInput"
+          style="opacity: 0; left: 2px; width: 100%; position: absolute"
+          onchange="preview_image(event)"
+          accept="image/*"
+        />
+      </button>
+
+     
+      <div id="colorPalette" style="width: 100%;display: flex; flex-wrap: wrap;gap: 10px;text-align: center;justify-content: center;padding-top: 10px;"></div>
+
+      <canvas id="myCanvas" width="600" height="400"></canvas>
+    </div>
+
+<script src="script.js"></script>
+  </body>
+</html>
