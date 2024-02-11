@@ -44,13 +44,6 @@ body {
   #output_image {
     visibility: hidden;
   }
-  .droping {
-    opacity: 0.8;
-    width: 100%;
-    border: dotted 2px;
-    background-color: aliceblue;
-    transition: 1s;
-  }
   .colors{
     width: 200px;
     height: 30px;
@@ -59,3 +52,20 @@ body {
     box-shadow: 2px 3px 3px gray;
 
   }
+
+  .dropContainer{
+    width: 300px;
+    height: 300px;
+    background-color: rgb(250, 250, 250);
+ 
+    border: dotted;
+    border-radius: 12px;
+    box-shadow: 2px 2px 2px gray;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+  }
+.droping{
+  background-color: rgba(171, 204, 171, 0.459);
+}

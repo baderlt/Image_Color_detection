@@ -1,9 +1,16 @@
 
-var dropContainer = document.getElementById("dropContainer");
+var dropContainer = document.querySelector(".dropContainer");
+
 dropContainer.ondragover = dropContainer.ondragenter = function (evt) {
+ 
   dropContainer.classList.add("droping");
   evt.preventDefault();
 };
+dropContainer.ondragleave=(e)=>{
+  dropContainer.classList.remove("droping");
+
+e.preventDefault();
+}
 dropContainer.ondrop = function (evt) {
   var fileInput = document.getElementById("imageInput");
   dropContainer.classList.remove("droping");
