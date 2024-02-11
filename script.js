@@ -1,4 +1,4 @@
-const canvas = document.getElementById("myCanvas");
+
 var dropContainer = document.getElementById("dropContainer");
 dropContainer.ondragover = dropContainer.ondragenter = function (evt) {
   dropContainer.classList.add("droping");
@@ -7,9 +7,7 @@ dropContainer.ondragover = dropContainer.ondragenter = function (evt) {
 dropContainer.ondrop = function (evt) {
   var fileInput = document.getElementById("imageInput");
   dropContainer.classList.remove("droping");
-  console.log(evt);
   fileInput.files = evt.dataTransfer.files;
-  console.log(fileInput);
   preview_image(evt);
   evt.preventDefault();
 };
@@ -17,23 +15,30 @@ function preview_image(event) {
   var reader = new FileReader();
   reader.onload = function () {
     var img = document.createElement("img");
-    img.src = reader.result;
-    img.width = "300";
-    img.height = "400";
-    // document.body.appendChild(img);;
+    img.src = reader.result;   
+    
+    setTimeout(()=>{
 
-    const ctx = canvas.getContext("2d");
-    console.log(img);
-    ctx.drawImage(img, 10, 10);
-    detectColors(ctx);
+      detectColors(img);
+    },500)
+ 
   };
   reader.readAsDataURL(event.target.files[0]);
 }
 
-async function detectColors(ctx) {
-  const canvas = document.getElementById("myCanvas");
-  let pixels = ctx.getImageData(1, 1, canvas.width, canvas.height);
+async function detectColors(img) {
+  var canvas =document.createElement('canvas');
+  canvas.id='myCanvas';
+  console.log(img);
+  console.log(img.Height);
+  canvas.width=img.width || '500';
+  canvas.height=img.height ||'500' ;
+  const ctx = canvas.getContext("2d");
+  console.log(canvas);
+  ctx.drawImage(img, 0, 0);
+  let pixels = ctx.getImageData(0, 0, img.width || 500, img.height || 500);
   let imageData = pixels.data;
+  img.remove();
   // return;
   let colorCounts = {};
 
@@ -47,10 +52,13 @@ async function detectColors(ctx) {
     // otherwise add 1
     if (colorCounts[rgbColor]) {
       colorCounts[rgbColor]++;
+
     } else {
       colorCounts[rgbColor] = 1;
+      // console.log(colorCounts);
     }
   }
+  
   // console.log(colorCounts);
   let colors = Object.entries(colorCounts)
     .sort(([, a], [, b]) => a - b)
@@ -74,4 +82,9 @@ async function detectColors(ctx) {
   colorPalette.appendChild(color);
 
 }
+let canvas_body =document.body.querySelectorAll('canvas');
+if(canvas_body.length > 0){
+  canvas_body[0].remove();
+}
+document.body.appendChild(canvas);
 }
